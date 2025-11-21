@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Settings — SEARCH</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">SEARCH</div>
+    <div class="right">
+      <a href="dashboard.html" class="ghost">Dashboard</a>
+    </div>
+  </header>
+
+  <main style="padding:20px;max-width:720px;margin:88px auto 120px;">
+    <section class="card">
+      <h2 style="color:var(--neon);margin:0 0 8px">Settings</h2>
+
+      <div style="margin-top:10px">
+        <label class="label">Display name</label>
+        <input id="s-name" placeholder="Your name shown on the app"/>
+      </div>
+
+      <div style="margin-top:10px">
+        <label class="label">Preferred mode</label>
+        <div class="row" style="margin-top:6px">
+          <button id="s-mode-pass" class="chip">Passenger</button>
+          <button id="s-mode-drive" class="chip">Driver</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <button id="save-settings" class="primary full">Save changes</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <button id="change-password" class="ghost full">Change password</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <button id="delete-account" class="danger full">Delete account</button>
+      </div>
+    </section>
+  </main>
+
+<script>
+  function q(id){return document.getElementById(id)}
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    if(window.FIREBASE_CLIENT_CONFIG && !firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    if(window.firebase && firebase.auth){
+      firebase.auth().onAuthStateChanged(user=>{
+        if(user){ q('s-name').value = user.displayName || ''; }
+      });
+    }
+  });
+
+  q('s-mode-pass').addEventListener('click', ()=> { localStorage.setItem('search_mode','passenger'); alert('Mode set to Passenger'); });
+  q('s-mode-drive').addEventListener('click', ()=> { localStorage.setItem('search_mode','driver'); alert('Mode set to Driver'); });
+
+  q('save-settings').addEventListener('click', async ()=>{
+    const name=q('s-name').value.trim();
+    if(!name) return alert('Enter name');
+    if(window.FIREBASE_CLIENT_CONFIG && !firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    if(window.firebase && firebase.auth){
+      const user = firebase.auth().currentUser;
+      if(!user) return alert('Sign in first');
+      try{
+        await user.updateProfile({ displayName: name });
+        await firebase.firestore().collection('users').doc(user.uid).set({ name }, { merge:true });
+        alert('Saved');
+      }catch(e){ alert(e.message||'Failed'); }
+    } else alert('Firebase not configured');
+  });
+
+  q('change-password').addEventListener('click', ()=> {
+    const email = prompt('Enter your email for password reset');
+    if(!email) return;
+    if(window.FIREBASE_CLIENT_CONFIG && !firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    if(window.firebase && firebase.auth){
+      firebase.auth().sendPasswordResetEmail(email).then(()=>alert('Reset email sent')).catch(e=>alert(e.message));
+    } else alert('Firebase not configured');
+  });
+
+  q('delete-account').addEventListener('click', async ()=>{
+    if(!confirm('Delete your account permanently?')) return;
+    if(window.FIREBASE_CLIENT_CONFIG && !firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    if(window.firebase && firebase.auth){
+      const user = firebase.auth().currentUser;
+      if(!user) return alert('Sign in first');
+      try{
+        await firebase.firestore().collection('users').doc(user.uid).delete();
+        await user.delete();
+        alert('Account deleted');
+        location.href='index.html';
+      }catch(e){ alert(e.message||'Delete failed'); }
+    } else alert('Firebase not configured');
+  });
+</script>
+
+  <footer class="footer muted">© SEARCH • Settings</footer>
+</body>
+</html>

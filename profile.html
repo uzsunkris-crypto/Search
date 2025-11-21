@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Profile — SEARCH</title><link rel="stylesheet" href="styles.css"/></head>
+<body>
+  <header class="topbar">
+    <div class="brand">SEARCH</div>
+    <div><a href="dashboard.html" class="ghost">Back</a></div>
+  </header>
+
+  <main style="padding:20px;max-width:720px;margin:88px auto 120px;">
+    <section class="card">
+      <h3>Your Profile</h3>
+      <div id="profile-area">
+        <div><strong id="pf-name">Guest</strong> <span id="pf-email" class="muted"></span></div>
+        <div style="margin-top:12px">
+          <label class="label">Mode</label>
+          <div class="row">
+            <button id="p-mode-pass" class="chip">Passenger</button>
+            <button id="p-mode-drive" class="chip">Driver</button>
+          </div>
+        </div>
+
+        <div style="margin-top:16px">
+          <a id="signout-link" href="index.html" class="ghost">Sign out</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script>
+  async function q(id){return document.getElementById(id)}
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    if(window.FIREBASE_CLIENT_CONFIG && !firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    if(window.firebase && firebase.auth){
+      firebase.auth().onAuthStateChanged(user=>{
+        if(user){ document.getElementById('pf-name').textContent = user.displayName || 'User'; document.getElementById('pf-email').textContent = user.email || ''; }
+        else { /* optionally redirect to login */ }
+      });
+    }
+  });
+
+  document.getElementById('p-mode-pass').addEventListener('click', ()=> { localStorage.setItem('search_mode','passenger'); alert('Mode set to passenger'); });
+  document.getElementById('p-mode-drive').addEventListener('click', ()=> { localStorage.setItem('search_mode','driver'); alert('Mode set to driver'); });
+</script>
+</body>
+</html>

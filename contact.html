@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Contact — SEARCH</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">SEARCH</div>
+    <div class="right">
+      <a href="dashboard.html" class="ghost">Dashboard</a>
+    </div>
+  </header>
+
+  <main style="padding:20px;max-width:720px;margin:88px auto 120px;">
+    <section class="card">
+      <h2 style="color:var(--neon);margin-bottom:6px">Contact Support</h2>
+      <p class="muted">If you need help, report an issue or send feedback below. We'll get back quickly.</p>
+
+      <div style="margin-top:12px">
+        <label class="label">Full name</label>
+        <input id="c-name" placeholder="Your name" />
+      </div>
+
+      <div style="margin-top:8px">
+        <label class="label">Email</label>
+        <input id="c-email" placeholder="you@example.com" />
+      </div>
+
+      <div style="margin-top:8px">
+        <label class="label">Message</label>
+        <textarea id="c-msg" placeholder="How can we help?" style="width:100%;min-height:120px;padding:10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit"></textarea>
+      </div>
+
+      <div style="margin-top:12px">
+        <button id="send-contact" class="primary full">Send message</button>
+      </div>
+
+      <div id="contact-note" class="muted small" style="margin-top:8px;display:none">Message sent — thank you. We'll reply to your email.</div>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h3 style="color:var(--neon);margin-bottom:6px">Quick help</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="chip" id="help-loc">Location not updating</button>
+        <button class="chip" id="help-payment">Payment issue</button>
+        <button class="chip" id="help-rate">Report driver</button>
+      </div>
+    </section>
+  </main>
+
+<script>
+  function q(id){return document.getElementById(id)}
+  q('send-contact').addEventListener('click', async ()=>{
+    const name = q('c-name').value.trim(), email = q('c-email').value.trim(), msg = q('c-msg').value.trim();
+    if(!name||!email||!msg) return alert('Complete all fields');
+    if(window.FIREBASE_CLIENT_CONFIG && !firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    if(window.firebase && firebase.firestore){
+      try{
+        await firebase.firestore().collection('support_messages').add({ name, email, message: msg, ts: firebase.firestore.FieldValue.serverTimestamp() });
+        q('contact-note').style.display='block';
+      }catch(e){ alert('Failed to send — try again later'); }
+    } else {
+      q('contact-note').style.display='block';
+    }
+  });
+
+  q('help-loc').addEventListener('click', ()=> alert('Make sure location is allowed in browser settings and GPS is enabled.'));
+  q('help-payment').addEventListener('click', ()=> alert('If payment failed, check bank or contact support.'));
+  q('help-rate').addEventListener('click', ()=> location.href='rating.html');
+</script>
+
+  <footer class="footer muted">© SEARCH • Support</footer>
+</body>
+</html>

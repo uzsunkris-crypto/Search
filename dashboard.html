@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SEARCH — Live Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="styles.css"/>
+<script src="firebase-config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="left">
+      <div class="brand">SEARCH</div>
+      <div id="mode-toggle" class="mode-toggle">
+        <button id="toggle-pass" class="mode-btn">Passenger</button>
+        <div class="switcher">|</div>
+        <button id="toggle-drive" class="mode-btn">Driver</button>
+      </div>
+    </div>
+
+    <div class="right">
+      <div id="user-badge" class="user-badge">Guest</div>
+      <a id="profile-link" href="profile.html" class="ghost">Profile</a>
+      <button id="signout" class="ghost">Sign out</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside id="control-panel" class="panel card">
+      <div id="welcome-card">
+        <h3 id="welcome-title">Welcome</h3>
+        <p id="sub-welcome" class="muted small">Select pickup and destination</p>
+      </div>
+
+      <div class="card small muted" style="margin-top:12px">
+        <div id="pay-status-small">Access: <span id="access-flag">Checking…</span></div>
+      </div>
+
+      <div id="controls" class="card" style="margin-top:12px">
+        <label class="label">Quick Mode</label>
+        <div class="row">
+          <button id="ui-mode-pass" class="chip">Passenger</button>
+          <button id="ui-mode-drive" class="chip">Driver</button>
+        </div>
+
+        <label class="label" style="margin-top:12px">Where are you now?</label>
+        <input id="pickup-input" placeholder="Tap locate or type pickup" />
+
+        <label class="label" style="margin-top:12px">Where are you going?</label>
+        <input id="dest-input" placeholder="Town, street, village..." />
+
+        <div class="row" style="margin-top:10px">
+          <button id="find-btn" class="primary">Find Drivers</button>
+          <button id="save-fav" class="ghost">Save</button>
+        </div>
+
+        <label class="label" style="margin-top:12px">Seats (driver)</label>
+        <input id="seats-input" type="number" min="0" max="14" placeholder="Seats (0-14)" />
+
+        <label class="label" style="margin-top:12px">Price (Optional)</label>
+        <input id="price-input" placeholder="₦ — set your price (driver)" />
+
+        <div style="margin-top:12px">
+          <button id="publish-btn" class="primary full">Publish</button>
+        </div>
+      </div>
+
+      <div id="driver-list-card" class="card" style="display:none;margin-top:12px">
+        <div id="driver-list-title">Drivers near you</div>
+        <div id="drivers-list" class="drivers-list"></div>
+      </div>
+
+      <div class="card small muted" style="margin-top:12px">
+        <div>Favorites</div>
+        <ul id="fav-list" class="fav-list"></ul>
+      </div>
+
+      <div style="margin-top:12px">
+        <button id="panic" class="danger full">⚠️ SOS</button>
+      </div>
+    </aside>
+
+    <section id="map-area">
+      <div id="map"></div>
+      <div class="floating-controls">
+        <button id="locate" class="circle" title="Center on me">📍</button>
+        <button id="toggle-panel" class="circle" title="Show controls">🧭</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer muted">© SEARCH • Built for Nigeria</footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+
+  <script src="map-logic.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js').catch(()=>{/*ignore*/});
+  </script>
+</body>
+</html>

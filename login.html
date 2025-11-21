@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Sign in — SEARCH</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="auth-body">
+  <main class="auth-card card" style="max-width:520px;margin:36px auto">
+    <div style="text-align:center">
+      <div class="brand-big" style="font-size:28px">SEARCH</div>
+      <p class="muted">Sign in with Google to access the app.</p>
+    </div>
+
+    <div style="margin-top:18px">
+      <button id="google-btn" class="primary full">Continue with Google</button>
+    </div>
+
+    <div style="margin-top:12px;text-align:center">
+      <a href="signup.html" class="ghost small">Or create an account</a>
+    </div>
+  </main>
+
+<script>
+  // This page expects firebase to be configured in firebase-config.js
+  async function q(id){return document.getElementById(id)}
+  document.getElementById('google-btn').addEventListener('click', async ()=>{
+    if(!window.FIREBASE_CLIENT_CONFIG) return alert('Firebase not configured (firebase-config.js)');
+    if(!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CLIENT_CONFIG);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try{
+      await auth.signInWithPopup(provider);
+      // On success, firebase.auth().onAuthStateChanged in app.js will redirect to dashboard
+      location.href = 'dashboard.html';
+    }catch(e){ alert(e.message || 'Sign in failed'); }
+  });
+</script>
+</body>
+</html>

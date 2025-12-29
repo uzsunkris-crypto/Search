@@ -1,9 +1,0 @@
-{
-  "name":"Search",
-  "short_name":"Search",
-  "start_url":"./dashboard.html",
-  "display":"standalone",
-  "background_color":"#050608",
-  "theme_color":"#00ff6a",
-  "icons":[]
-}

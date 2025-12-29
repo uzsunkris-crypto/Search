@@ -1,93 +1,142 @@
 /* RESET */
-* { margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif; }
-body { background:#f0f2f5; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f0f2f5;
+  overflow-x: hidden;
+}
 
 /* MAIN GRID */
 .main-grid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  padding:20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns for 4x5 grid */
+  gap: 20px;
+  padding: 30px;
+  max-width: 1400px;
+  margin: auto;
 }
 
 /* GRID BOX */
 .grid-box {
-  position:relative;
-  overflow:hidden;
-  border-radius:15px;
-  cursor:pointer;
-  transition: transform 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 
+.grid-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* IMAGES */
 .grid-box img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: transform 0.5s ease;
 }
 
+/* LABELS */
 .grid-box span {
-  position:absolute;
-  bottom:10px;
-  left:10px;
-  color:white;
-  font-weight:bold;
-  text-shadow:0 0 5px rgba(0,0,0,0.7);
-  font-size:16px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  font-size: 16px;
 }
 
 /* HIGHLIGHT & BLUR */
 .grid-box.highlight {
-  transform: scale(1.2);
-  box-shadow:0 0 25px rgba(0,0,0,0.5);
-  z-index:10;
-  filter:none;
+  transform: scale(1.25);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  filter: none;
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1.2); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1.2); }
 }
 
 .grid-box.blurred {
-  filter: blur(5px);
+  filter: blur(4px);
+  opacity: 0.6;
 }
 
 /* BOTTOM INPUT BAR */
 .bottom-input-bar {
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  display:flex;
-  align-items:center;
-  padding:10px;
-  background:#fff;
-  border-top:1px solid #ccc;
-  gap:10px;
-  z-index:1000;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  gap: 10px;
+  z-index: 1000;
 }
 
 .bottom-input-bar input {
-  flex:1;
-  padding:12px 15px;
-  border-radius:25px;
-  border:1px solid #ccc;
-  font-size:16px;
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
 .bottom-input-bar button {
-  background:#007BFF;
-  border:none;
-  border-radius:50%;
-  color:white;
-  padding:10px 14px;
-  cursor:pointer;
-  font-size:18px;
+  background: #007BFF;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bottom-input-bar button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
 }
 
 /* SPECIFIC BUTTONS */
-.door-btn { font-size:20px; }
-.microphone-btn { font-size:18px; }
-.category-send-btn { font-size:18px; }
+.door-btn { font-size: 22px; }
+.microphone-btn { font-size: 18px; }
+.category-send-btn { font-size: 18px; }
 
-/* RESPONSIVE */
-@media screen and (max-width:768px){
-  .main-grid { grid-template-columns:repeat(2,1fr); }
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 1200px) {
+  .main-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media screen and (max-width: 992px) {
+  .main-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media screen and (max-width: 768px) {
+  .main-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-width: 480px) {
+  .main-grid { grid-template-columns: repeat(1, 1fr); }
 }

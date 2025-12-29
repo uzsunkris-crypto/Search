@@ -1,48 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SEARCH — Choose role</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Homes</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="role-body">
-  <main class="role-card">
-    <div class="brand-big">SEARCH</div>
-    <h1 class="role-title">Welcome — Choose your role</h1>
-    <p class="muted">Pick Passenger or Driver. You can switch anytime in the app.</p>
+<body>
 
-    <div class="role-grid">
-      <button id="choose-passenger" class="role-btn passenger">
-        <div class="emoji">🧍</div>
-        <div class="label">Passenger</div>
-        <small>Find drivers heading your way</small>
-      </button>
+<!-- MAIN CONTENT GRID -->
+<div class="main-grid" id="serviceGrid">
+  <div class="grid-box">
+    <img src="images/plumbing.jpg" alt="Plumbing">
+    <span>Plumbing</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/electrician.jpg" alt="Electrician">
+    <span>Electrician</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/catering.jpg" alt="Catering">
+    <span>Catering</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/boutique.jpg" alt="Boutique">
+    <span>Boutique</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/bakery.jpg" alt="Bakery">
+    <span>Bakery</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/mechanic.jpg" alt="Mechanic">
+    <span>Mechanic</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/salon.jpg" alt="Salon">
+    <span>Salon</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/cleaning.jpg" alt="Cleaning">
+    <span>Cleaning</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/photography.jpg" alt="Photography">
+    <span>Photography</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/it-services.jpg" alt="IT Services">
+    <span>IT Services</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/delivery.jpg" alt="Delivery">
+    <span>Delivery</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/laundry.jpg" alt="Laundry">
+    <span>Laundry</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/painting.jpg" alt="Painting">
+    <span>Painting</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/gardening.jpg" alt="Gardening">
+    <span>Gardening</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/transport.jpg" alt="Transport">
+    <span>Transport</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/home-decor.jpg" alt="Home Decor">
+    <span>Home Decor</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/fitness.jpg" alt="Fitness">
+    <span>Fitness</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/security.jpg" alt="Security">
+    <span>Security</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/tutoring.jpg" alt="Tutoring">
+    <span>Tutoring</span>
+  </div>
+  <div class="grid-box">
+    <img src="images/carpentry.jpg" alt="Carpentry">
+    <span>Carpentry</span>
+  </div>
+</div>
 
-      <button id="choose-driver" class="role-btn driver">
-        <div class="emoji">🚐</div>
-        <div class="label">Driver</div>
-        <small>Publish your route & be found</small>
-      </button>
-    </div>
-
-    <div class="foot-note">
-      <a href="login.html" class="ghost small">Sign in (Google)</a>
-      <a href="about.html" class="ghost small" style="margin-left:12px">About</a>
-    </div>
-  </main>
+<!-- BOTTOM CHATGPT-STYLE INPUT BAR -->
+<div class="bottom-input-bar">
+  <button class="door-btn">🚪</button>
+  <input type="text" id="searchInput" placeholder="Search for whatever you want">
+  <button class="microphone-btn">🎤</button>
+  <button id="categorySendBtn" class="category-send-btn">📂</button>
+</div>
 
 <script>
-  document.getElementById('choose-passenger').addEventListener('click', () => {
-    localStorage.setItem('search_mode', 'passenger');
-    localStorage.setItem('hasChosenMode', 'true');
-    location.href = 'dashboard.html';
-  });
-  document.getElementById('choose-driver').addEventListener('click', () => {
-    localStorage.setItem('search_mode', 'driver');
-    localStorage.setItem('hasChosenMode', 'true');
-    location.href = 'dashboard.html';
+  // ALIVE GRID ANIMATION
+  const boxes = document.querySelectorAll('.grid-box');
+  const grid = document.getElementById('serviceGrid');
+  const intervalTime = 3000;
+
+  function highlightBox() {
+    grid.classList.add('blur'); // blur all
+    const randomIndex = Math.floor(Math.random() * boxes.length);
+    boxes.forEach(box => box.classList.remove('highlight'));
+    const activeBox = boxes[randomIndex];
+    activeBox.classList.add('highlight'); // unblur highlighted box
+
+    setTimeout(() => {
+      activeBox.classList.remove('highlight');
+      grid.classList.remove('blur');
+    }, 2000);
+  }
+
+  setInterval(highlightBox, intervalTime);
+
+  // CATEGORY / SEND BUTTON LOGIC
+  const categorySendBtn = document.getElementById('categorySendBtn');
+  const searchInput = document.getElementById('searchInput');
+
+  categorySendBtn.addEventListener('click', () => {
+    if(searchInput.value.trim() === "") {
+      // Open category selector
+      alert("Open category dropdown (placeholder)");
+    } else {
+      // Send search
+      alert("Search executed: " + searchInput.value);
+    }
   });
 </script>
+
 </body>
 </html>

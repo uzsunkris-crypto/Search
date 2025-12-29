@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- MAIN CONTENT GRID -->
+<!-- MAIN GRID -->
 <div class="main-grid" id="serviceGrid">
   <div class="grid-box">
     <img src="images/plumbing.jpg" alt="Plumbing">
@@ -101,36 +101,35 @@
 </div>
 
 <script>
-  // ALIVE GRID ANIMATION
+  // ALIVE GRID HIGHLIGHT
   const boxes = document.querySelectorAll('.grid-box');
-  const grid = document.getElementById('serviceGrid');
-  const intervalTime = 3000;
 
   function highlightBox() {
-    grid.classList.add('blur'); // blur all
     const randomIndex = Math.floor(Math.random() * boxes.length);
-    boxes.forEach(box => box.classList.remove('highlight'));
-    const activeBox = boxes[randomIndex];
-    activeBox.classList.add('highlight'); // unblur highlighted box
-
-    setTimeout(() => {
-      activeBox.classList.remove('highlight');
-      grid.classList.remove('blur');
-    }, 2000);
+    boxes.forEach((box, i) => {
+      if(i === randomIndex){
+        box.classList.add('highlight');
+        box.classList.remove('blurred');
+      } else {
+        box.classList.remove('highlight');
+        box.classList.add('blurred');
+      }
+    });
   }
 
-  setInterval(highlightBox, intervalTime);
+  // Run first highlight immediately
+  highlightBox();
+  // Run every 3 seconds
+  setInterval(highlightBox, 3000);
 
-  // CATEGORY / SEND BUTTON LOGIC
+  // CATEGORY/SEND BUTTON LOGIC
   const categorySendBtn = document.getElementById('categorySendBtn');
   const searchInput = document.getElementById('searchInput');
 
   categorySendBtn.addEventListener('click', () => {
     if(searchInput.value.trim() === "") {
-      // Open category selector
       alert("Open category dropdown (placeholder)");
     } else {
-      // Send search
       alert("Search executed: " + searchInput.value);
     }
   });

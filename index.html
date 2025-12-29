@@ -8,132 +8,63 @@
 </head>
 <body>
 
-<!-- MAIN GRID -->
-<div class="main-grid" id="serviceGrid">
-  <div class="grid-box">
-    <img src="images/plumbing.jpg" alt="Plumbing">
-    <span>Plumbing</span>
+  <!-- MAIN GRID -->
+  <div class="main-grid" id="serviceGrid">
+    <div class="grid-box"><img src="images/home-cleaning.jpg" alt="Home Cleaning"><span>Home Cleaning</span></div>
+    <div class="grid-box"><img src="images/heating-control.jpg" alt="Heating Control"><span>Heating Control</span></div>
+    <div class="grid-box"><img src="images/smart-kitchen.jpg" alt="Smart Kitchen"><span>Smart Kitchen</span></div>
+    <div class="grid-box"><img src="images/smart-food.jpg" alt="Smart Food"><span>Smart Food</span></div>
+    <div class="grid-box"><img src="images/lighting.jpg" alt="Lighting"><span>Lighting</span></div>
+    <div class="grid-box"><img src="images/entertainment.jpg" alt="Entertainment"><span>Entertainment</span></div>
+    <div class="grid-box highlight"><img src="images/security.jpg" alt="Security"><span>Security</span></div>
+    <div class="grid-box"><img src="images/garage.jpg" alt="Garage"><span>Garage</span></div>
+    <div class="grid-box"><img src="images/gardening.jpg" alt="Gardening"><span>Gardening</span></div>
+    <div class="grid-box"><img src="images/mechanic.jpg" alt="Mechanic"><span>Mechanic</span></div>
+    <div class="grid-box"><img src="images/salon.jpg" alt="Salon"><span>Salon</span></div>
+    <div class="grid-box"><img src="images/cleaning.jpg" alt="Cleaning"><span>Cleaning</span></div>
+    <div class="grid-box"><img src="images/photography.jpg" alt="Photography"><span>Photography</span></div>
+    <div class="grid-box"><img src="images/it-services.jpg" alt="IT Services"><span>IT Services</span></div>
+    <div class="grid-box"><img src="images/bakery.jpg" alt="Bakery"><span>Bakery</span></div>
+    <div class="grid-box"><img src="images/delivery.jpg" alt="Delivery"><span>Delivery</span></div>
+    <div class="grid-box"><img src="images/home-decor.jpg" alt="Home Decor"><span>Home Decor</span></div>
+    <div class="grid-box"><img src="images/fitness.jpg" alt="Fitness"><span>Fitness</span></div>
+    <div class="grid-box"><img src="images/carpentry.jpg" alt="Carpentry"><span>Carpentry</span></div>
+    <div class="grid-box"><img src="images/granston.jpg" alt="Granston"><span>Granston</span></div>
   </div>
-  <div class="grid-box">
-    <img src="images/electrician.jpg" alt="Electrician">
-    <span>Electrician</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/catering.jpg" alt="Catering">
-    <span>Catering</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/boutique.jpg" alt="Boutique">
-    <span>Boutique</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/bakery.jpg" alt="Bakery">
-    <span>Bakery</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/mechanic.jpg" alt="Mechanic">
-    <span>Mechanic</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/salon.jpg" alt="Salon">
-    <span>Salon</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/cleaning.jpg" alt="Cleaning">
-    <span>Cleaning</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/photography.jpg" alt="Photography">
-    <span>Photography</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/it-services.jpg" alt="IT Services">
-    <span>IT Services</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/delivery.jpg" alt="Delivery">
-    <span>Delivery</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/laundry.jpg" alt="Laundry">
-    <span>Laundry</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/painting.jpg" alt="Painting">
-    <span>Painting</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/gardening.jpg" alt="Gardening">
-    <span>Gardening</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/transport.jpg" alt="Transport">
-    <span>Transport</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/home-decor.jpg" alt="Home Decor">
-    <span>Home Decor</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/fitness.jpg" alt="Fitness">
-    <span>Fitness</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/security.jpg" alt="Security">
-    <span>Security</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/tutoring.jpg" alt="Tutoring">
-    <span>Tutoring</span>
-  </div>
-  <div class="grid-box">
-    <img src="images/carpentry.jpg" alt="Carpentry">
-    <span>Carpentry</span>
-  </div>
-</div>
 
-<!-- BOTTOM CHATGPT-STYLE INPUT BAR -->
-<div class="bottom-input-bar">
-  <button class="door-btn">🚪</button>
-  <input type="text" id="searchInput" placeholder="Search for whatever you want">
-  <button class="microphone-btn">🎤</button>
-  <button id="categorySendBtn" class="category-send-btn">📂</button>
-</div>
+  <!-- BOTTOM CHATGPT-STYLE INPUT BAR -->
+  <div class="bottom-input-bar">
+    <button class="door-btn">🚪</button>
+    <input type="text" id="searchInput" placeholder="Search for whatever you want">
+    <button class="microphone-btn">🎤</button>
+    <button id="categorySendBtn" class="category-send-btn">📂</button>
+  </div>
 
-<script>
-  // ALIVE GRID HIGHLIGHT
-  const boxes = document.querySelectorAll('.grid-box');
+  <!-- CATEGORY PANEL -->
+  <div class="category-panel" id="categoryPanel">
+    <!-- Example glass boxes -->
+    <div class="glass-box">Plumbing</div>
+    <div class="glass-box">Electrician</div>
+    <div class="glass-box">Catering</div>
+    <div class="glass-box">Boutique</div>
+    <div class="glass-box">Bakery</div>
+    <div class="glass-box">Mechanic</div>
+    <div class="glass-box">Salon</div>
+    <div class="glass-box">Cleaning</div>
+    <div class="glass-box">Photography</div>
+    <div class="glass-box">IT Services</div>
+    <div class="glass-box">Delivery</div>
+    <div class="glass-box">Laundry</div>
+    <div class="glass-box">Painting</div>
+    <div class="glass-box">Gardening</div>
+    <div class="glass-box">Transport</div>
+    <div class="glass-box">Home Decor</div>
+    <div class="glass-box">Fitness</div>
+    <div class="glass-box">Security</div>
+    <div class="glass-box">Tutoring</div>
+    <div class="glass-box">Carpentry</div>
+  </div>
 
-  function highlightBox() {
-    const randomIndex = Math.floor(Math.random() * boxes.length);
-    boxes.forEach((box, i) => {
-      if(i === randomIndex){
-        box.classList.add('highlight');
-        box.classList.remove('blurred');
-      } else {
-        box.classList.remove('highlight');
-        box.classList.add('blurred');
-      }
-    });
-  }
-
-  // Run first highlight immediately
-  highlightBox();
-  // Run every 3 seconds
-  setInterval(highlightBox, 3000);
-
-  // CATEGORY/SEND BUTTON LOGIC
-  const categorySendBtn = document.getElementById('categorySendBtn');
-  const searchInput = document.getElementById('searchInput');
-
-  categorySendBtn.addEventListener('click', () => {
-    if(searchInput.value.trim() === "") {
-      alert("Open category dropdown (placeholder)");
-    } else {
-      alert("Search executed: " + searchInput.value);
-    }
-  });
-</script>
-
+  <script src="script.js"></script>
 </body>
-</html>
+                            </html>

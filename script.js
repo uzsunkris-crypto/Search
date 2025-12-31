@@ -1,5 +1,3 @@
-
-// Particle Background Generation
 const pContainer = document.getElementById('particle-container');
 for (let i = 0; i < 25; i++) {
     const p = document.createElement('div');
@@ -12,7 +10,6 @@ for (let i = 0; i < 25; i++) {
     pContainer.appendChild(p);
 }
 
-// Category Grid Initialization
 const categories = ["Home & Living", "Food & Hosp.", "Fashion/Beauty", "Health/Well", "Education", "Tech/Digital", "Business", "Transport", "Construction", "Shopping", "Agri/Env", "Media/Creative", "Events/Ent.", "Real Estate", "Finance", "Public/Comm", "Security", "Freelance", "Automotive", "Science", "Talent"];
 const grid = document.getElementById('grid');
 
@@ -23,7 +20,6 @@ categories.forEach((cat, i) => {
     grid.appendChild(card);
 });
 
-// Automatic Highlighting Logic
 const cards = document.querySelectorAll('.category-card');
 let pool = [];
 function startSequence() {
@@ -42,7 +38,6 @@ function startSequence() {
 }
 startSequence();
 
-// Typing Effect for Search Pill
 const typingElement = document.getElementById('typing-text');
 const phrases = ["experts", "design", "delivery", "health"];
 let phraseIdx = 0, charIdx = 0, isDeleting = false;
@@ -51,15 +46,9 @@ function typeEffect() {
     const currentPhrase = phrases[phraseIdx];
     typingElement.textContent = isDeleting ? currentPhrase.substring(0, charIdx--) : currentPhrase.substring(0, charIdx++);
     let speed = isDeleting ? 100 : 150;
-    if (!isDeleting && charIdx > currentPhrase.length) { 
-        speed = 2000; 
-        isDeleting = true; 
-    }
-    else if (isDeleting && charIdx === 0) { 
-        isDeleting = false; 
-        phraseIdx = (phraseIdx + 1) % phrases.length; 
-        speed = 500; 
-    }
+    if (!isDeleting && charIdx > currentPhrase.length) { speed = 2000; isDeleting = true; }
+    else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; speed = 500; }
     setTimeout(typeEffect, speed);
 }
 typeEffect();
+

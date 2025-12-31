@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion & Beauty Services Grid</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0806;
+            --gold-bright: #f1d38e;
+            --gold-dim: #bfa37a;
+            --border-color: #3d2b1f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1e1610 0%, #0a0806 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .container {
+            width: 98vw;
+            height: 98vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            color: var(--gold-bright);
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin: 1vh 0 1.5vh 0;
+            font-size: 2.5vh;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            gap: 0.8vh;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* MOBILE DEFAULT: 3 Columns x 7 Rows */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(7, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 0.5vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 0.5vh; }
+            .label { font-size: 1.1vh; }
+        }
+
+        /* DESKTOP: 7 Columns x 3 Rows */
+        @media (min-width: 769px) {
+            .grid {
+                grid-template-columns: repeat(7, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 1vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 1vh; }
+            .label { font-size: 1.2vh; }
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, #1a140e, #0a0805);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .category-card.selected {
+            border-color: var(--gold-bright);
+            box-shadow: inset 0 0 20px rgba(241, 211, 142, 0.1), 0 0 15px rgba(241, 211, 142, 0.2);
+            background: #1e1811;
+        }
+
+        .category-card:hover:not(.selected) {
+            border-color: var(--gold-dim);
+        }
+
+        .icon-wrapper {
+            color: var(--gold-dim); 
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category-card.selected .icon-wrapper {
+            color: var(--gold-bright);
+            filter: drop-shadow(0 0 5px rgba(241, 211, 142, 0.6));
+        }
+
+        .icon-wrapper i {
+            width: 2.8vh;
+            height: 2.8vh;
+        }
+
+        .label {
+            color: var(--gold-dim);
+            font-weight: 500;
+            line-height: 1.2;
+            padding: 0 4px;
+        }
+
+        .category-card.selected .label {
+            color: var(--gold-bright);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Explore Services</div>
+    
+    <div class="grid" id="categoryGrid">
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="shirt"></i></div><div class="label">Clothing & Apparel</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="footprints"></i></div><div class="label">Footwear</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="shopping-bag"></i></div><div class="label">Bags & Accessories</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="gem"></i></div><div class="label">Jewelry & Watches</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="sparkles"></i></div><div class="label">Beauty & Cosmetics</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="user-round"></i></div><div class="label">Hair & Wig Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="brush"></i></div><div class="label">Makeup Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="flower"></i></div><div class="label">Nails & Spa Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="scissors"></i></div><div class="label">Tailoring & Alterations</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="pencil-ruler"></i></div><div class="label">Fashion Design & Styling</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="languages"></i></div><div class="label">Traditional Fashion</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="origami"></i></div><div class="label">Modest Wear</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="bike"></i></div><div class="label">Sportswear</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="moon"></i></div><div class="label">Lingerie & Sleepwear</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="wrench"></i></div><div class="label">Beauty Tools</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="smile"></i></div><div class="label">Personal Grooming</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="store"></i></div><div class="label">Retail & Boutiques</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="camera"></i></div><div class="label">Modeling Talent</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="ticket"></i></div><div class="label">Fashion Events</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="leaf"></i></div><div class="label">Sustainable Fashion</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="graduation-cap"></i></div><div class="label">Consulting & Education</div></div>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+    const cards = document.querySelectorAll('.category-card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+  </html>
+  

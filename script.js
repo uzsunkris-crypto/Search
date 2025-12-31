@@ -1,3 +1,4 @@
+
 // Particle Background Generation
 const pContainer = document.getElementById('particle-container');
 for (let i = 0; i < 25; i++) {
@@ -62,4 +63,3 @@ function typeEffect() {
     setTimeout(typeEffect, speed);
 }
 typeEffect();
-

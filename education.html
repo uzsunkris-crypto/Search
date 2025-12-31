@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Services Grid</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0806;
+            --gold-bright: #f1d38e;
+            --gold-dim: #bfa37a;
+            --border-color: #3d2b1f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1e1610 0%, #0a0806 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .container {
+            width: 98vw;
+            height: 98vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            color: var(--gold-bright);
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin: 1vh 0 1.5vh 0;
+            font-size: 2.5vh;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            gap: 0.8vh;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(7, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 0.5vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 0.5vh; }
+            .label { font-size: 1vh; }
+        }
+
+        @media (min-width: 769px) {
+            .grid {
+                grid-template-columns: repeat(7, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 1vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 1vh; }
+            .label { font-size: 1.2vh; }
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, #1a140e, #0a0805);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .category-card.selected {
+            border-color: var(--gold-bright);
+            box-shadow: inset 0 0 20px rgba(241, 211, 142, 0.1), 0 0 15px rgba(241, 211, 142, 0.2);
+            background: #1e1811;
+        }
+
+        .category-card:hover:not(.selected) {
+            border-color: var(--gold-dim);
+        }
+
+        .icon-wrapper {
+            color: var(--gold-dim); 
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category-card.selected .icon-wrapper {
+            color: var(--gold-bright);
+            filter: drop-shadow(0 0 5px rgba(241, 211, 142, 0.6));
+        }
+
+        .icon-wrapper i {
+            width: 2.8vh;
+            height: 2.8vh;
+        }
+
+        .label {
+            color: var(--gold-dim);
+            font-weight: 500;
+            line-height: 1.2;
+            padding: 0 4px;
+        }
+
+        .category-card.selected .label {
+            color: var(--gold-bright);
+        }
+
+        /* SEARCH UI */
+        :root {
+            --gold-fab: #e2b35a;
+            --gold-fab-light: #f9e1b1;
+            --ease-fab: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .fab-trigger {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--gold-fab);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.5s var(--ease-fab);
+        }
+
+        .search-active .fab-trigger { opacity: 0; transform: scale(0); pointer-events: none; }
+
+        .nav-wrapper-centered {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translate(-50%, 50px);
+            width: 90%;
+            max-width: 380px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s var(--ease-fab);
+            z-index: 10000;
+        }
+
+        .search-active .nav-wrapper-centered { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+
+        .bottom-nav-outer-custom {
+            display: flex;
+            align-items: center;
+            padding: 6px;
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: 40px;
+            border: 1px solid var(--gold-fab);
+        }
+
+        .search-pill-custom {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            margin-left: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 0 12px;
+            flex-grow: 1;
+        }
+
+        .search-text-custom { color: var(--gold-fab-light); font-size: 11px; flex-grow: 1; }
+        #typing-text-fab::after { content: "|"; animation: blink-fab 1.2s infinite; color: var(--gold-fab); }
+        @keyframes blink-fab { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Explore Services</div>
+    
+    <div class="grid" id="categoryGrid">
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="school"></i></div><div class="label">Schools</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="graduation-cap"></i></div><div class="label">Colleges & Uni</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="hammer"></i></div><div class="label">Vocational Training</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="monitor-play"></i></div><div class="label">Online Learning</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="user-plus"></i></div><div class="label">Tutors & Lessons</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="languages"></i></div><div class="label">Language Learning</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="pencil-ruler"></i></div><div class="label">Test Prep</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="lightbulb"></i></div><div class="label">Skill Workshops</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="music"></i></div><div class="label">Arts & Music</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="code-2"></i></div><div class="label">STEM & Coding</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="award"></i></div><div class="label">Certifications</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="users"></i></div><div class="label">Soft Skills</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="book-open"></i></div><div class="label">Books & Materials</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="tablet"></i></div><div class="label">eBooks & Resources</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="app-window"></i></div><div class="label">Educational Apps</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="user-check"></i></div><div class="label">Mentorship</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="heart-handshake"></i></div><div class="label">Special Needs</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="microscope"></i></div><div class="label">Academic Research</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="compass"></i></div><div class="label">Career Guidance</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="presentation"></i></div><div class="label">Seminars</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="briefcase"></i></div><div class="label">Edu Consulting</div></div>
+    </div>
+</div>
+
+<div id="search-component-container">
+    <div class="fab-trigger" onclick="toggleFabSearch()">
+        <svg fill="#000" width="18" height="18" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </div>
+    <div class="nav-wrapper-centered">
+        <div class="bottom-nav-outer-custom">
+            <div onclick="toggleFabSearch()" style="cursor:pointer; padding-left:10px;">
+                <svg fill="#e2b35a" width="14" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </div>
+            <div class="search-pill-custom">
+                <div class="search-text-custom">search <span id="typing-text-fab"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+    const cards = document.querySelectorAll('.category-card');
+    cards.forEach(card => card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+    }));
+
+    function toggleFabSearch() { document.getElementById('search-component-container').classList.toggle('search-active'); }
+
+    (function() {
+        const typingElement = document.getElementById('typing-text-fab');
+        const phrases = ["Universities", "Coding", "Tutors", "Scholarships"];
+        let phraseIdx = 0, charIdx = 0, isDeleting = false;
+        function typeEffect() {
+            const current = phrases[phraseIdx];
+            typingElement.textContent = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+            let speed = isDeleting ? 70 : 120;
+            if (!isDeleting && charIdx > current.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; speed = 500; }
+            setTimeout(typeEffect, speed);
+        }
+        typeEffect();
+    })();
+</script>
+</body>
+  </html>
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Explore Services Grid</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0806;
+            --gold-bright: #f1d38e;
+            --gold-dim: #bfa37a;
+            --border-color: #3d2b1f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1e1610 0%, #0a0806 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .container {
+            width: 98vw;
+            height: 98vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            color: var(--gold-bright);
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin: 1vh 0 1.5vh 0;
+            font-size: 2.5vh;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            gap: 0.8vh;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* MOBILE DEFAULT: 3 Columns x 7 Rows */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(7, 1fr);
+            }
+            .category-card {
+                flex-direction: column; /* Stacks icon on top for narrow mobile columns */
+                justify-content: center;
+                text-align: center;
+                padding: 0.5vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 0.5vh; }
+            .label { font-size: 1.2vh; }
+        }
+
+        /* DESKTOP: 7 Columns x 3 Rows */
+        @media (min-width: 769px) {
+            .grid {
+                grid-template-columns: repeat(7, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 1vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 1vh; }
+            .label { font-size: 1.3vh; }
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, #1a140e, #0a0805);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .category-card.selected {
+            border-color: var(--gold-bright);
+            box-shadow: inset 0 0 20px rgba(241, 211, 142, 0.1), 0 0 15px rgba(241, 211, 142, 0.2);
+            background: #1e1811;
+        }
+
+        .icon-wrapper {
+            color: var(--gold-dim); 
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category-card.selected .icon-wrapper {
+            color: var(--gold-bright);
+            filter: drop-shadow(0 0 5px rgba(241, 211, 142, 0.6));
+        }
+
+        .icon-wrapper i {
+            width: 3vh;
+            height: 3vh;
+        }
+
+        .label {
+            color: var(--gold-dim);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .category-card.selected .label {
+            color: var(--gold-bright);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Explore Services</div>
+    
+    <div class="grid" id="categoryGrid">
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="sofa"></i></div><div class="label">Furniture & Furnishings</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="refrigerator"></i></div><div class="label">Home Appliances</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="utensils-crossed"></i></div><div class="label">Kitchen & Dining</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="spray-can"></i></div><div class="label">Home Cleaning Products</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="brush"></i></div><div class="label">Cleaning & Housekeeping</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="palette"></i></div><div class="label">Interior Design & Styling</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="lamp"></i></div><div class="label">Home Décor & Accessories</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="cpu"></i></div><div class="label">Smart Home & Automation</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="zap"></i></div><div class="label">Electrical Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="droplet"></i></div><div class="label">Plumbing & Water Systems</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="shield-check"></i></div><div class="label">Home Security & Safety</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="hammer"></i></div><div class="label">Home Maintenance & Repairs</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="flower-2"></i></div><div class="label">Outdoor & Garden Living</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="plug-zap"></i></div><div class="label">Home Utilities & Energy</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="shirt"></i></div><div class="label">Laundry & Clothing Care</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="heart-pulse"></i></div><div class="label">Home Comfort & Wellness</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="users"></i></div><div class="label">Home Assistance & Staff</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="accessibility"></i></div><div class="label">Elderly & Assisted Living</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="key"></i></div><div class="label">Temporary Living Solutions</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="truck"></i></div><div class="label">Moving & Home Relocation</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="clipboard-check"></i></div><div class="label">Home Consultancy</div></div>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+    const cards = document.querySelectorAll('.category-card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>
+

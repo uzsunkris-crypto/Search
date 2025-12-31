@@ -1,4 +1,4 @@
-// Particle System
+// Particle Background Generation
 const pContainer = document.getElementById('particle-container');
 for (let i = 0; i < 25; i++) {
     const p = document.createElement('div');
@@ -11,44 +11,37 @@ for (let i = 0; i < 25; i++) {
     pContainer.appendChild(p);
 }
 
-// Category Grid Generation
+// Category Grid Initialization
 const categories = ["Home & Living", "Food & Hosp.", "Fashion/Beauty", "Health/Well", "Education", "Tech/Digital", "Business", "Transport", "Construction", "Shopping", "Agri/Env", "Media/Creative", "Events/Ent.", "Real Estate", "Finance", "Public/Comm", "Security", "Freelance", "Automotive", "Science", "Talent"];
 const grid = document.getElementById('grid');
 
-categories.forEach((cat) => {
+categories.forEach((cat, i) => {
     const card = document.createElement('div');
     card.className = `category-card`;
-    card.innerHTML = `<div class="card-content" style="background-image: url('https://picsum.photos/seed/${cat}/200/500')"><div class="category-name">${cat}</div></div>`;
+    card.innerHTML = `<div class="card-content" style="background-image: url('https://picsum.photos/seed/${cat}/200/500')"></div><div class="category-name">${cat}</div>`;
     grid.appendChild(card);
 });
 
-// Active Card Sequence with Grid Focus Logic
+// Automatic Highlighting Logic
 const cards = document.querySelectorAll('.category-card');
 let pool = [];
-
 function startSequence() {
     if (pool.length === 0) pool = Array.from(Array(21).keys()).sort(() => Math.random() - 0.5);
     const cardIdx = pool.pop();
     
-    // 1. Tell the grid we have an active item (triggers blur on others)
+    // Signal the grid that a box is active
     grid.classList.add('has-active');
-    
-    // 2. Highlight the specific card
     cards[cardIdx].classList.add('active');
-    cards[cardIdx].style.transform = "scale(1.12)";
     
     setTimeout(() => { 
-        // 3. Reset state
-        cards[cardIdx].classList.remove('active'); 
-        cards[cardIdx].style.transform = "scale(1)";
         grid.classList.remove('has-active');
+        cards[cardIdx].classList.remove('active'); 
     }, 2000);
-    
     setTimeout(startSequence, 4000);
 }
 startSequence();
 
-// Typing Effect
+// Typing Effect for Search Pill
 const typingElement = document.getElementById('typing-text');
 const phrases = ["experts", "design", "delivery", "health"];
 let phraseIdx = 0, charIdx = 0, isDeleting = false;
@@ -57,8 +50,15 @@ function typeEffect() {
     const currentPhrase = phrases[phraseIdx];
     typingElement.textContent = isDeleting ? currentPhrase.substring(0, charIdx--) : currentPhrase.substring(0, charIdx++);
     let speed = isDeleting ? 100 : 150;
-    if (!isDeleting && charIdx > currentPhrase.length) { speed = 2000; isDeleting = true; }
-    else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; speed = 500; }
+    if (!isDeleting && charIdx > currentPhrase.length) { 
+        speed = 2000; 
+        isDeleting = true; 
+    }
+    else if (isDeleting && charIdx === 0) { 
+        isDeleting = false; 
+        phraseIdx = (phraseIdx + 1) % phrases.length; 
+        speed = 500; 
+    }
     setTimeout(typeEffect, speed);
 }
 typeEffect();

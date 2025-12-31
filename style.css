@@ -71,7 +71,7 @@ body {
     z-index: 10;
 }
 
-/* --- RESPONSIVE GRID LOGIC --- */
+/* --- RESPONSIVE GRID --- */
 .grid-container {
     display: grid;
     gap: 5px;
@@ -97,6 +97,34 @@ body {
     }
 }
 
+/* --- BLUR AND FOCUS LOGIC --- */
+
+/* When any card is active, blur all card backgrounds */
+.grid-container.has-active .card-content {
+    filter: blur(5px);
+    opacity: 0.5;
+}
+
+/* Keep the active card's background clear and bright */
+.grid-container.has-active .category-card.active .card-content {
+    filter: blur(0);
+    opacity: 1;
+}
+
+/* Ensure the text labels NEVER blur, even in inactive boxes */
+.category-name {
+    position: relative;
+    z-index: 10; /* Keeps text above the blurred background layer */
+    color: #fff;
+    font-size: 7px; 
+    font-weight: 900;
+    text-align: center;
+    padding: 0 2px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0,0,0,1); /* Adds readability */
+}
+
 .category-card {
     position: relative;
     border-radius: 4px; 
@@ -104,12 +132,13 @@ body {
     box-shadow: 0 0 4px var(--gold-glow);
     background: #111;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .category-card.active {
-    box-shadow: 0 0 12px var(--gold);
+    box-shadow: 0 0 15px var(--gold);
     z-index: 50;
+    border-color: var(--gold-light);
 }
 
 .card-content {
@@ -121,6 +150,7 @@ body {
     justify-content: center;
     align-items: flex-end;
     padding-bottom: 8px;
+    transition: filter 0.4s ease, opacity 0.4s ease;
 }
 
 .card-content::after {
@@ -129,18 +159,6 @@ body {
     bottom: 0; left: 0; width: 100%; height: 70%;
     background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
     z-index: 1;
-}
-
-.category-name {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    font-size: 7px; 
-    font-weight: 900;
-    text-align: center;
-    padding: 0 2px;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
 }
 
 .nav-wrapper {
@@ -203,4 +221,4 @@ body {
 
 #typing-text::after { content: "|"; animation: blink 1.2s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
-
+        

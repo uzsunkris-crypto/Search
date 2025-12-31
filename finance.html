@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance & Banking Services Grid</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0806;
+            --gold-bright: #f1d38e;
+            --gold-dim: #bfa37a;
+            --border-color: #3d2b1f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1e1610 0%, #0a0806 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .container {
+            width: 98vw;
+            height: 98vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            color: var(--gold-bright);
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin: 1vh 0 1.5vh 0;
+            font-size: 2.5vh;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            gap: 0.8vh;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* MOBILE DEFAULT: 3 Columns x 7 Rows */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(7, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 0.5vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 0.5vh; }
+            .label { font-size: 1.1vh; }
+        }
+
+        /* DESKTOP: 7 Columns x 3 Rows */
+        @media (min-width: 769px) {
+            .grid {
+                grid-template-columns: repeat(7, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            .category-card {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 1vh;
+            }
+            .icon-wrapper { margin-right: 0; margin-bottom: 1vh; }
+            .label { font-size: 1.2vh; }
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, #1a140e, #0a0805);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .category-card.selected {
+            border-color: var(--gold-bright);
+            box-shadow: inset 0 0 20px rgba(241, 211, 142, 0.1), 0 0 15px rgba(241, 211, 142, 0.2);
+            background: #1e1811;
+        }
+
+        .category-card:hover:not(.selected) {
+            border-color: var(--gold-dim);
+        }
+
+        .icon-wrapper {
+            color: var(--gold-dim); 
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category-card.selected .icon-wrapper {
+            color: var(--gold-bright);
+            filter: drop-shadow(0 0 5px rgba(241, 211, 142, 0.6));
+        }
+
+        .icon-wrapper i {
+            width: 2.8vh;
+            height: 2.8vh;
+        }
+
+        .label {
+            color: var(--gold-dim);
+            font-weight: 500;
+            line-height: 1.2;
+            padding: 0 4px;
+        }
+
+        .category-card.selected .label {
+            color: var(--gold-bright);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Explore Services</div>
+    
+    <div class="grid" id="categoryGrid">
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="landmark"></i></div><div class="label">Banks & Credit Unions</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="hand-coins"></i></div><div class="label">Loans & Mortgages</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="gem"></i></div><div class="label">Investments & Wealth Management</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="candlestick-chart"></i></div><div class="label">Stock Market & Trading Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="shield-check"></i></div><div class="label">Insurance Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="book-open-check"></i></div><div class="label">Accounting & Bookkeeping</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="file-text"></i></div><div class="label">Tax Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="briefcase"></i></div><div class="label">Financial Planning & Consulting</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="refresh-cw"></i></div><div class="label">Payment & Transfer Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="bitcoin"></i></div><div class="label">Cryptocurrency & Digital Assets</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="graduation-cap"></i></div><div class="label">Financial Education & Courses</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="umbrella"></i></div><div class="label">Retirement & Pension Services</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="gauge"></i></div><div class="label">Risk Assessment & Analysis</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="users"></i></div><div class="label">Payroll & HR Finance</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="megaphone"></i></div><div class="label">Crowdfunding & Fundraising Platforms</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="scroll"></i></div><div class="label">Wealth Protection & Estate Planning</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="trending-up"></i></div><div class="label">Corporate Finance Advisory</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="coins"></i></div><div class="label">Microfinance & Small Loans</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="cpu"></i></div><div class="label">Fintech Solutions</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="credit-card"></i></div><div class="label">Credit Rating & Reports</div></div>
+        <div class="category-card"><div class="icon-wrapper"><i data-lucide="search-check"></i></div><div class="label">Auditing & Compliance</div></div>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+    const cards = document.querySelectorAll('.category-card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+        });
+    });
+</script>
+
+<style>
+    /* Floating Action Button (FAB) and Animated Search styles */
+    :root {
+        --gold-fab: #e2b35a;
+        --gold-fab-light: #f9e1b1;
+        --gold-fab-glow: rgba(226, 179, 90, 0.4);
+        --ease-fab: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .fab-trigger {
+        position: fixed;
+        top: 15px;      
+        right: 15px;    
+        width: 40px;    
+        height: 40px;
+        background: var(--gold-fab);
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 10px var(--gold-fab-glow);
+        transition: all 0.5s var(--ease-fab);
+        z-index: 9999;
+    }
+
+    .fab-trigger .icon-svg-black { fill: #000; width: 18px; height: 18px; }
+
+    .search-active .fab-trigger {
+        opacity: 0;
+        transform: scale(0) translateY(-10px);
+        pointer-events: none;
+    }
+
+    .nav-wrapper-centered {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%, 50px);
+        width: 90%;
+        max-width: 380px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s var(--ease-fab);
+        z-index: 10000;
+    }
+
+    .search-active .nav-wrapper-centered {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+    }
+
+    .bottom-nav-outer-custom {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        background: rgba(20, 20, 20, 0.95); 
+        backdrop-filter: blur(15px);
+        border-radius: 40px;
+        border: 1px solid var(--gold-fab);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    .nav-circle-btn-custom {
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--gold-fab);
+        display: flex; align-items: center; justify-content: center;
+        background: #000; cursor: pointer; flex-shrink: 0;
+    }
+
+    .search-pill-custom {
+        display: flex; align-items: center; height: 30px;
+        margin-left: 10px; background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px; padding: 0 6px 0 12px;
+        border: 1px solid rgba(226, 179, 90, 0.2); flex-grow: 1;
+    }
+
+    .search-text-custom {
+        color: var(--gold-fab-light); font-size: 11px;
+        flex-grow: 1; letter-spacing: 0.5px;
+    }
+
+    .icon-svg-gold { fill: var(--gold-fab); width: 16px; }
+    .mic-icon-gold { fill: var(--gold-fab); width: 12px; margin-right: 8px; }
+    
+    .inner-circle-btn-custom {
+        width: 22px; height: 22px; border-radius: 50%;
+        border: 1px solid var(--gold-fab);
+        display: flex; align-items: center; justify-content: center;
+        background: #000;
+    }
+
+    #typing-text-fab::after { 
+        content: "|"; animation: blink-fab 1.2s infinite; color: var(--gold-fab); 
+    }
+    @keyframes blink-fab { 50% { opacity: 0; } }
+</style>
+
+<div id="search-component-container">
+    <div class="fab-trigger" onclick="toggleFabSearch()">
+        <svg class="icon-svg-black" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+    </div>
+
+    <div class="nav-wrapper-centered">
+        <div class="bottom-nav-outer-custom">
+            <div class="nav-circle-btn-custom" onclick="toggleFabSearch()">
+                <svg class="icon-svg-gold" style="width:14px" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </div>
+            
+            <div class="search-pill-custom">
+                <div class="search-text-custom">search <span id="typing-text-fab"></span></div>
+                <svg class="mic-icon-gold" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+                <div class="inner-circle-btn-custom">
+                    <svg class="icon-svg-gold" style="width: 11px;" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleFabSearch() {
+        const container = document.getElementById('search-component-container');
+        container.classList.toggle('search-active');
+    }
+
+    (function() {
+        const typingElement = document.getElementById('typing-text-fab');
+        const phrases = ["Insurance", "Crypto", "Loans", "Accounting"];
+        let phraseIdx = 0, charIdx = 0, isDeleting = false;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIdx];
+            typingElement.textContent = isDeleting 
+                ? currentPhrase.substring(0, charIdx--) 
+                : currentPhrase.substring(0, charIdx++);
+
+            let speed = isDeleting ? 70 : 120;
+            if (!isDeleting && charIdx > currentPhrase.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; speed = 500; }
+            setTimeout(typeEffect, speed);
+        }
+        typeEffect();
+    })();
+</script>
+</body>
+</html>

@@ -29,7 +29,6 @@ body {
     pointer-events: none;
     z-index: 0;
 }
-
 .particle {
     position: absolute;
     background: var(--gold-light);
@@ -37,7 +36,6 @@ body {
     opacity: 0.2;
     animation: float-particle linear infinite;
 }
-
 @keyframes float-particle {
     0% { transform: translateY(0); opacity: 0; }
     50% { opacity: 0.4; }
@@ -51,20 +49,17 @@ body {
     justify-content: flex-start;
     z-index: 10;
 }
-
 .header-logo {
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
 .logo-homes {
     background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 .divider-line {
     width: 95%;
     height: 1px;
@@ -78,7 +73,7 @@ body {
     display: grid;
     gap: 5px;
     width: 90%; 
-    height: 82vh; 
+    height: 78vh; /* Adjusted for better fit on small screens */
     margin: 2px auto;
     z-index: 5;
     grid-template-columns: repeat(3, 1fr); 
@@ -142,7 +137,7 @@ body {
 }
 
 .category-name {
-    position: absolute; 
+    position: absolute; /* Positioned relative to category-card */
     bottom: 8px;
     left: 0;
     right: 0;

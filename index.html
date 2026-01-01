@@ -9,7 +9,6 @@
             --gold: #e2b35a;
             --gold-light: #f9e1b1;
             --gold-glow: rgba(226, 179, 90, 0.4);
-            /* Smooth easing for professional feel */
             --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
@@ -75,12 +74,11 @@
             z-index: 10;
         }
 
-        /* --- RESPONSIVE GRID LOGIC --- */
         .grid-container {
             display: grid;
             gap: 5px;
             width: 90%; 
-            height: 78vh; /* Adjusted for better fit on small screens */
+            height: 78vh; 
             margin: 2px auto;
             z-index: 5;
             grid-template-columns: repeat(3, 1fr); 
@@ -106,12 +104,12 @@
             box-shadow: 0 0 4px var(--gold-glow);
             background: #111;
             overflow: hidden;
-            /* Professional transition timing */
             transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s ease, z-index 0s;
             transform: scale(1);
+            text-decoration: none; /* Reset for <a> tag */
+            display: block;
         }
 
-        /* Specific Blur logic: blur the background image but keep the card sharp */
         .grid-container.has-active .category-card:not(.active) .card-content {
             filter: blur(5px);
             opacity: 0.3;
@@ -144,7 +142,7 @@
         }
 
         .category-name {
-            position: absolute; /* Positioned relative to category-card */
+            position: absolute;
             bottom: 8px;
             left: 0;
             right: 0;
@@ -264,13 +262,41 @@
         pContainer.appendChild(p);
     }
 
-    const categories = ["Home & Living", "Food & Hosp.", "Fashion/Beauty", "Health/Well", "Education", "Tech/Digital", "Business", "Transport", "Construction", "Shopping", "Agri/Env", "Media/Creative", "Events/Ent.", "Real Estate", "Finance", "Public/Comm", "Security", "Freelance", "Automotive", "Science", "Talent"];
+    // Mapped Categories to your Files
+    const categories = [
+        { name: "Home & Living", file: "home.html" },
+        { name: "Food & Hosp.", file: "food.html" },
+        { name: "Fashion/Beauty", file: "fashion.html" },
+        { name: "Health/Well", file: "health.html" },
+        { name: "Education", file: "education.html" },
+        { name: "Tech/Digital", file: "technology.html" },
+        { name: "Business", file: "business.html" },
+        { name: "Transport", file: "transport.html" },
+        { name: "Construction", file: "construction.html" },
+        { name: "Shopping", file: "shopping.html" },
+        { name: "Agri/Env", file: "agriculture.html" },
+        { name: "Media/Creative", file: "media.html" },
+        { name: "Events/Ent.", file: "event.html" },
+        { name: "Real Estate", file: "realestate.html" },
+        { name: "Finance", file: "finance.html" },
+        { name: "Public/Comm", file: "community.html" },
+        { name: "Security", file: "security.html" },
+        { name: "Freelance", file: "personal.html" },
+        { name: "Automotive", file: "automotive.html" },
+        { name: "Science", file: "science.html" },
+        { name: "Talent", file: "talent.html" }
+    ];
+
     const grid = document.getElementById('grid');
     
     categories.forEach((cat, i) => {
-        const card = document.createElement('div');
+        const card = document.createElement('a');
         card.className = `category-card`;
-        card.innerHTML = `<div class="card-content" style="background-image: url('https://picsum.photos/seed/${cat}/200/500')"></div><div class="category-name">${cat}</div>`;
+        card.href = cat.file;
+        card.innerHTML = `
+            <div class="card-content" style="background-image: url('https://picsum.photos/seed/${cat.name}/200/500')"></div>
+            <div class="category-name">${cat.name}</div>
+        `;
         grid.appendChild(card);
     });
 
@@ -280,7 +306,6 @@
         if (pool.length === 0) pool = Array.from(Array(21).keys()).sort(() => Math.random() - 0.5);
         const cardIdx = pool.pop();
         
-        // Signal the grid that a box is active
         grid.classList.add('has-active');
         cards[cardIdx].classList.add('active');
         

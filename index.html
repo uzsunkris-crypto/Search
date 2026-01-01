@@ -4,7 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Smart Homes - Grid 21</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --gold: #e2b35a;
+            --gold-light: #f9e1b1;
+            --gold-glow: rgba(226, 179, 90, 0.4);
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden; 
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        body {
+            color: #fff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #particle-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            background: var(--gold-light);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float-particle linear infinite;
+        }
+        @keyframes float-particle {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        .header-container {
+            width: 90%;
+            margin-top: 8px;
+            display: flex;
+            justify-content: flex-start;
+            z-index: 10;
+        }
+        .header-logo {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .logo-homes {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .divider-line {
+            width: 95%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 4px 0;
+            z-index: 10;
+        }
+
+        .grid-container {
+            display: grid;
+            gap: 5px;
+            width: 90%; 
+            height: 78vh;
+            margin: 2px auto;
+            z-index: 5;
+            grid-template-columns: repeat(3, 1fr); 
+            grid-template-rows: repeat(7, 1fr);    
+        }
+
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(7, 1fr); 
+                grid-template-rows: repeat(3, 1fr);
+                height: 75vh;
+                width: 95%;
+            }
+            .category-name {
+                font-size: 10px !important;
+            }
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 4px; 
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 4px var(--gold-glow);
+            background: #111;
+            overflow: hidden;
+            transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s ease, z-index 0s;
+            transform: scale(1);
+            cursor: pointer;
+        }
+
+        .grid-container.has-active .category-card:not(.active) .card-content {
+            filter: blur(5px);
+            opacity: 0.3;
+        }
+
+        .category-card.active {
+            box-shadow: 0 0 20px var(--gold);
+            z-index: 50;
+            transform: scale(1.12);
+        }
+
+        .card-content {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 8px;
+            transition: filter 0.5s ease, opacity 0.5s ease;
+        }
+
+        .card-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 70%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .category-name {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            color: #fff;
+            font-size: 7px; 
+            font-weight: 900;
+            text-align: center;
+            padding: 0 2px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 4px #000;
+            pointer-events: none;
+        }
+
+        .nav-wrapper {
+            position: fixed;
+            bottom: 8px;
+            width: 92%;
+            max-width: 400px;
+            z-index: 100;
+        }
+
+        .bottom-nav-outer {
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid var(--gold);
+        }
+
+        .nav-circle-btn {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center; justify-content: center;
+            background: #000;
+            flex-shrink: 0;
+        }
+
+        .search-pill {
+            flex-grow: 1;
+            height: 28px;
+            margin-left: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px 0 12px;
+            border: 1px solid rgba(226, 179, 90, 0.2);
+        }
+
+        .search-text {
+            color: var(--gold-light);
+            font-size: 8px;
+            flex-grow: 1;
+        }
+
+        .mic-icon { fill: var(--gold); width: 10px; margin-right: 6px; }
+        .icon-svg { fill: var(--gold); width: 14px; }
+
+        .inner-circle-btn {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center; justify-content: center;
+            background: #000;
+        }
+
+        #typing-text::after { content: "|"; animation: blink 1.2s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
 </head>
 <body>
 
@@ -35,7 +248,87 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+    const pContainer = document.getElementById('particle-container');
+    for (let i = 0; i < 25; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 2 + 1;
+        p.style.width = p.style.height = `${size}px`;
+        p.style.left = `${Math.random() * 100}vw`;
+        p.style.top = `${Math.random() * 100}vh`;
+        p.style.animationDuration = `${Math.random() * 8 + 4}s`;
+        pContainer.appendChild(p);
+    }
+
+    const categories = [
+        { name: "Home & Living", page: "home.html" },
+        { name: "Food & Hosp.", page: "food.html" },
+        { name: "Fashion/Beauty", page: "fashion.html" },
+        { name: "Health/Well", page: "health.html" },
+        { name: "Education", page: "education.html" },
+        { name: "Tech/Digital", page: "technology.html" },
+        { name: "Business", page: "business.html" },
+        { name: "Transport", page: "transport.html" },
+        { name: "Construction", page: "construction.html" },
+        { name: "Shopping", page: "shopping.html" },
+        { name: "Agri/Env", page: "agriculture.html" },
+        { name: "Media/Creative", page: "media.html" },
+        { name: "Events/Ent.", page: "event.html" },
+        { name: "Real Estate", page: "realestate.html" },
+        { name: "Finance", page: "finance.html" },
+        { name: "Public/Comm", page: "community.html" },
+        { name: "Security", page: "security.html" },
+        { name: "Freelance", page: "personal.html" },
+        { name: "Automotive", page: "automotive.html" },
+        { name: "Science", page: "science.html" },
+        { name: "Talent", page: "talent.html" }
+    ];
+
+    const grid = document.getElementById('grid');
+
+    categories.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.innerHTML = `
+            <div class="card-content" style="background-image: url('https://picsum.photos/seed/${cat.name}/200/500')"></div>
+            <div class="category-name">${cat.name}</div>
+        `;
+        card.addEventListener('click', () => {
+            window.location.href = cat.page;
+        });
+        grid.appendChild(card);
+    });
+
+    const cards = document.querySelectorAll('.category-card');
+    let pool = [];
+
+    function startSequence() {
+        if (pool.length === 0) pool = Array.from(Array(21).keys()).sort(() => Math.random() - 0.5);
+        const cardIdx = pool.pop();
+        grid.classList.add('has-active');
+        cards[cardIdx].classList.add('active');
+        setTimeout(() => { 
+            grid.classList.remove('has-active');
+            cards[cardIdx].classList.remove('active'); 
+        }, 2000);
+        setTimeout(startSequence, 4000);
+    }
+    startSequence();
+
+    const typingElement = document.getElementById('typing-text');
+    const phrases = ["experts", "design", "delivery", "health"];
+    let phraseIdx = 0, charIdx = 0, isDeleting = false;
+
+    function typeEffect() {
+        const currentPhrase = phrases[phraseIdx];
+        typingElement.textContent = isDeleting ? currentPhrase.substring(0, charIdx--) : currentPhrase.substring(0, charIdx++);
+        let speed = isDeleting ? 100 : 150;
+        if (!isDeleting && charIdx > currentPhrase.length) { speed = 2000; isDeleting = true; }
+        else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; speed = 500; }
+        setTimeout(typeEffect, speed);
+    }
+    typeEffect();
+</script>
 </body>
 </html>
-

@@ -89,3 +89,15 @@
     typeEffect();
 </script>
           
+
+
+         // This forces the grid to recalculate its layout based on item count
+window.addEventListener('resize', () => {
+    const grid = document.getElementById('categoryGrid');
+    if(window.innerWidth < 768) {
+        grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(90px, 1fr))";
+    } else {
+        grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(120px, 1fr))";
+    }
+});
+    
